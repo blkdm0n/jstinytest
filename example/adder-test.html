@@ -11,13 +11,26 @@
   // forEach([1,2,3], (number) => {
   //  console.log(number);
   // });
+
+  const forEach = (arr, cb) => {
+    for (let i = 0; i < arr.length; i++) {
+      cb(arr[i]);
+    }
+  };
+
   tests({
 
     'It should run the callback function array.length times': function () {
-      fail();
+      var counter = 0;
+      forEach([1, 2, 3], () => {
+        counter++;
+      });
+      eq(counter, 3);
     },
     'It should pass the ith element as the first argument to the callback': function () {
-      fail();
+      forEach([1], (number) => {
+        eq(number, 1);
+      });
     }
   });
 </script>
