@@ -7,14 +7,27 @@
   //  console.log('hi');
   // });
 
-  // Example 2:
+  // Example 2: "Callback should have access to the elements of the array"
   // forEach([1,2,3], (number) => {
   //  console.log(number);
   // });
 
+  // Example 3: "Callback should have access to the index of the current element"
+  // forEach([1,2,3], (number, index) => {
+  // console.log(index)
+  // });
+
+  // Example 4: "Callback should have access to the original array"
+  // forEach([1,2,3], (number, index, originalArray) => {
+  // console.log(originalArray)
+  // });
+
+
+
+
   const forEach = (arr, cb) => {
     for (let i = 0; i < arr.length; i++) {
-      cb(arr[i]);
+      cb(arr[i], i, arr);
     }
   };
 
@@ -31,6 +44,18 @@
       forEach([1], (number) => {
         eq(number, 1);
       });
-    }
+    },
+    'It should pass in the ith index as the second argument to the callback.': function () {
+      forEach([1], (number, index) => {
+        eq(index, 0);
+      });
+    },
+    'It should pass in the original array as the third argument to the callback':
+      function () {
+        var testArray = [1, 2, 3]
+        forEach(testArray, (number, index, originalArray) => {
+          eq(testArray, originalArray);
+        });
+      }
   });
 </script>
