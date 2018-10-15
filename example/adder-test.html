@@ -60,7 +60,7 @@
           eq(testArray, originalArray);
         });
       },
-    'It accept a configurable this objects as an optional argument':
+    'It accept a configurable `this` objects as an optional argument':
       function () {
         forEach([1, 2, 3], function () {
           eq(this.description, "I am a configurable this object");
