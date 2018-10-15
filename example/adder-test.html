@@ -25,7 +25,10 @@
 
 
 
-  const forEach = (arr, cb) => {
+  const forEach = (arr, cb, configurableThisObject) => {
+    if (configurableThisObject) {
+      cb = cb.bind(configurableThisObject);
+    }
     for (let i = 0; i < arr.length; i++) {
       cb(arr[i], i, arr);
     }
@@ -56,6 +59,12 @@
         forEach(testArray, (number, index, originalArray) => {
           eq(testArray, originalArray);
         });
+      },
+    'It accept a configurable this objects as an optional argument':
+      function () {
+        forEach([1, 2, 3], function () {
+          eq(this.description, "I am a configurable this object");
+        }, { description: "I am a configurable this object" });
       }
   });
 </script>
