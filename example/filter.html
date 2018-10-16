@@ -1,5 +1,66 @@
 <script src="../tinytest.js"></script>
 <script>
 
+  const filter = (arr, cb, configurableThis) => {
+    let filteredArray = [];
+    if (configurableThis) {
+      cb = cb.bind(configurableThis);
+    }
+    for (let i = 0; i < arr.length; i++) {
+      if (cb(arr[i], i, arr)) {
+        filteredArray.push(arr[i]);
+      }
+    }
 
+    return filteredArray;
+  }
+
+  tests({
+    'It should run the callback function array.length times': function () {
+      var counter = 0;
+      filter([1, 2, 3, 4], () => {
+        counter++;
+      });
+      eq(counter, 4)
+    },
+
+    'It should pass the ith element as the first argument to the callback': function () {
+      filter([1], (number) => {
+        eq(number, 1);
+      });
+    },
+    'It should pass the ith index as the second argument to the callback': function () {
+      filter([1], (number, index) => {
+        eq(index, 0);
+      });
+    },
+    'It should pass the originalArray as the third argument to the callback': function () {
+      let testArray = [1];
+      filter(testArray, (number, index, originalArray) => {
+        eq(testArray, originalArray);
+      });
+    },
+    'It accept a configurable `this` objects as an optional argument': function () {
+      filter([1, 2, 3], function () {
+        eq(this.description, 'I am THIS!');
+      }, { description: 'I am THIS!' });
+    },
+    'It should return an array': function () {
+      let testArray = [];
+      let filteredArray = filter(testArray, () => { });
+      eq(Array.isArray(filteredArray), true);
+    },
+    'It should return a NEW array not the array being filtered': function () {
+      let testArray = [];
+      let filteredArray = filter([1, 2, 3], () => { });
+      eq(testArray !== filteredArray, true);
+    },
+    'It should return an array of elements for which the callback is true': function () {
+      let testArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+      let filteredArray = filter(testArray, (number) => {
+        return number % 2 === 0;
+      });
+      eq(JSON.stringify(filteredArray), JSON.stringify([2, 4, 6, 8, 10]));
+    },
+  })
 </script>
