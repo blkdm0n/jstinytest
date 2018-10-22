@@ -1,5 +1,72 @@
 <script src="../tinytest.js"></script>
 <script>
 
+  //EX 1:  Callback should run array.length times
+
+
+
+  const map = (arr, cb, configurableThis) => {
+    let mappedArray = [];
+    if (configurableThis) {
+      cb = cb.bind(configurableThis);
+    }
+    for (let i = 0; i < arr.length; i++) {
+      mappedArray.push(cb(arr[i], i, arr));
+    }
+    return mappedArray;
+
+
+  }
+
+
+  tests({
+    'It should run the callback function array.length times': function () {
+      var counter = 0;
+      map([1, 2, 3, 4], () => {
+        counter++;
+      });
+      eq(counter, 4)
+    },
+
+    'It should pass the ith element as the first argument to the callback': function () {
+      map([1], (number) => {
+        eq(number, 1);
+      });
+    },
+    'It should pass the ith index as the second argument to the callback': function () {
+      map([1], (number, index) => {
+        eq(index, 0);
+      });
+    },
+    'It should pass the originalArray as the third argument to the callback': function () {
+      let testArray = [1];
+      map(testArray, (number, index, originalArray) => {
+        eq(testArray, originalArray);
+      });
+    },
+    'It accept a configurable `this` objects as an optional argument': function () {
+      map([1, 2, 3], function () {
+        eq(this.description, 'I am THIS!');
+      }, { description: 'I am THIS!' });
+    },
+    'It should return an new array': function () {
+      let testArray = [];
+      let mappedArray = map(testArray, () => { });
+      eq(Array.isArray(mappedArray), true);
+    },
+    'It should return a NEW array not the array being filtered': function () {
+      let testArray = [];
+      let mappedArray = map([1, 2, 3], () => { });
+      eq(testArray !== mappedArray, true);
+    },
+    'It should return a new array with each element being the result of the callback function.': function () {
+      let testArray = [1, 2, 3, 4, 5];
+      let mappedArray = map(testArray, (number) => {
+        return number * 2;
+      });
+      eq(JSON.stringify(mappedArray), JSON.stringify([2, 4, 6, 8, 10]));
+    },
+  })
+
 
 </script>
