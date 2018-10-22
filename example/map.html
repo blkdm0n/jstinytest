@@ -11,11 +11,12 @@
       cb = cb.bind(configurableThis);
     }
     for (let i = 0; i < arr.length; i++) {
-      mappedArray.push(cb(arr[i], i, arr));
+      if (i in arr) {
+        mappedArray[i] = cb(arr[i], i, arr);
+      }
+
     }
     return mappedArray;
-
-
   }
 
 
@@ -66,6 +67,14 @@
       });
       eq(JSON.stringify(mappedArray), JSON.stringify([2, 4, 6, 8, 10]));
     },
+    'It should skip unassigned indexes': function () {
+      let weirdArray = [, 2];
+      let mappedArray = map(weirdArray, (number) => {
+        return number * 2;
+      });
+      eq(0 in mappedArray, false);
+      eq(mappedArray[1], 4)
+    }
   })
 
 
