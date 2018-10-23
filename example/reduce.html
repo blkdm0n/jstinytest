@@ -1,0 +1,25 @@
+<script src="../tinytest.js"></script>
+<script>
+
+  const reduce = (arr, cb, startingValue) => {
+    let resultsSoFar = startingValue;
+    for (let i = 0; i < arr.length; i++) {
+      resultsSoFar = cb(resultsSoFar, arr[i]);
+    }
+    return resultsSoFar;
+  }
+
+
+
+
+  tests({
+    '': function () { },
+    '': function () { },
+    '': function () { },
+    '': function () { },
+    '': function () { }
+
+  })
+
+
+</script>
