@@ -18,34 +18,30 @@
   // currentIndex
   // array
 
+  // Returns value:
   // Returns a single value
 
   // Requirements:
 
-  // CASE A:
-  // If initialValue, previousValue should be equal to initialValue
-  // If initialValue, currentValue will be the first value in the array
-  // If initialValue, callback will start at index 0
+  // If initialValue, previousValue should start with initialValue
+  // If initialValue, currentValue should start with arr[0]
+  // If initialValue, callback should start at index 0
 
-  // CASE B:
-  // If NO initialValue, previousValue will be equal to the first value in the array
-  // If NO initialValue, currentValue will be equal to the second value in the array
-  // If NO initialValue, callback will start at index 1 
+  // If NO initialValue, previousValue should start with arr[0]
+  // If NO initialValue, currentValue should start with arr[1]
+  // If NO initialValue, callback should start at index 1 
+
+  // If initialValue, and array is empty, it should return initialValue without calling the callback
+  // If no initialValue, and array has a one element, it should return that element without calling the callback
 
   // It should reduce values to a single value
-  // Callback should not run on holes in the array.
+  // It should exclude holes in the array.
+  // It should throw a TypeError if the array is empty and there is no initialValue
+  // It should pass array as fourth argument to callback
 
-  // EDGE CASES:
-  // If array is empty and NO initialValue, throw TypeError
-  // EX: reduce([], ()=>{}) >>> TypeError
 
-  // If array has a single element and NO initialValue, return only element WITHOUT  calling callback
-  // EX: reduce([1], ()=>{}) >>> return 1
-  // EX: reduce([/*hole*/,1], ()=>{}) >>> return 1
 
-  // If array is empty, and there is an initialValue, return initialValue WITHOUT calling callback 
-  // EX: reduce([], ()=>{}, 5) >>> return 5 
-  // EX: reduce([/*hole*/, 5], () => { }) >>> return 1
+
 
   tests({
     '': function () { },
