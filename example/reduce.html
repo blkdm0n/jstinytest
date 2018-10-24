@@ -1,16 +1,51 @@
 <script src="../tinytest.js"></script>
 <script>
+  // Prototype Implementation
 
   const reduce = (arr, cb, startingValue) => {
-    let resultsSoFar = startingValue;
+    let resultsSoFar = startingValue || 0;
     for (let i = 0; i < arr.length; i++) {
-      resultsSoFar = cb(resultsSoFar, arr[i]);
+      resultsSoFar = cb(resultsSoFar, arr[i], i, arr);
     }
     return resultsSoFar;
   }
 
+  // reduce(arr, callback[, initialValue])
 
+  // callback parameters:
+  // previousValue
+  // currentValue
+  // currentIndex
+  // array
 
+  // Returns a single value
+
+  // Requirements:
+
+  // CASE A:
+  // If initialValue, previousValue should be equal to initialValue
+  // If initialValue, currentValue will be the first value in the array
+  // If initialValue, callback will start at index 0
+
+  // CASE B:
+  // If NO initialValue, previousValue will be equal to the first value in the array
+  // If NO initialValue, currentValue will be equal to the second value in the array
+  // If NO initialValue, callback will start at index 1 
+
+  // It should reduce values to a single value
+  // Callback should not run on holes in the array.
+
+  // EDGE CASES:
+  // If array is empty and NO initialValue, throw TypeError
+  // EX: reduce([], ()=>{}) >>> TypeError
+
+  // If array has a single element and NO initialValue, return only element WITHOUT  calling callback
+  // EX: reduce([1], ()=>{}) >>> return 1
+  // EX: reduce([/*hole*/,1], ()=>{}) >>> return 1
+
+  // If array is empty, and there is an initialValue, return initialValue WITHOUT calling callback 
+  // EX: reduce([], ()=>{}, 5) >>> return 5 
+  // EX: reduce([/*hole*/, 5], () => { }) >>> return 1
 
   tests({
     '': function () { },
