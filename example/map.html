@@ -55,7 +55,7 @@
       let mappedArray = map(testArray, () => { });
       eq(Array.isArray(mappedArray), true);
     },
-    'It should return a NEW array not the array being filtered': function () {
+    'It should return a NEW array not the array being mapped': function () {
       let testArray = [];
       let mappedArray = map([1, 2, 3], () => { });
       eq(testArray !== mappedArray, true);
