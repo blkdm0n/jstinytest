@@ -25,6 +25,8 @@
 
 
   const forEach = (arr, cb, configurableThisObject) => {
+    //if we have a configurableThisObject then we need to bind our callback to the `configurableThisObject`
+    
     if (configurableThisObject) {
       cb = cb.bind(configurableThisObject);
     }
