@@ -13,6 +13,7 @@
 
     //reason about this code.  how does it work?
     for (let i = 0; i < arr.length; i++) {
+      //this only calls the callback IF the index is defined in the array
       if (i in arr) {
         mappedArray[i] = cb(arr[i], i, arr);
       }
